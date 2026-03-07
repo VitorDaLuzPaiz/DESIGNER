@@ -1,182 +1,189 @@
 /*=============== LOADING SCREEN ===============*/
 window.addEventListener('load', () => {
-    const loadingScreen = document.getElementById('loadingScreen');
-    setTimeout(() => {
-        loadingScreen.classList.add('hide');
-    }, 800);
+  const loadingScreen = document.getElementById('loadingScreen');
+  if (!loadingScreen) return;
+
+  setTimeout(() => {
+    loadingScreen.classList.add('hide');
+  }, 650);
 });
 
-/*=============== NAVIGATION ===============*/
+/*=============== NAVIGATION (Mobile menu + overlay + body lock) ===============*/
 const navMenu = document.getElementById('navMenu');
 const navToggle = document.getElementById('navToggle');
 const navClose = document.getElementById('navClose');
+const navOverlay = document.getElementById('navOverlay');
 const navLinks = document.querySelectorAll('.nav-link');
+
+function openMenu() {
+  if (!navMenu) return;
+  navMenu.classList.add('show-menu');
+  if (navOverlay) navOverlay.classList.add('show');
+  document.body.classList.add('no-scroll');
+}
+
+function closeMenu() {
+  if (!navMenu) return;
+  navMenu.classList.remove('show-menu');
+  if (navOverlay) navOverlay.classList.remove('show');
+  document.body.classList.remove('no-scroll');
+}
 
 // Show menu
 if (navToggle) {
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.add('show-menu');
-    });
+  navToggle.addEventListener('click', openMenu);
 }
 
 // Hide menu
 if (navClose) {
-    navClose.addEventListener('click', () => {
-        navMenu.classList.remove('show-menu');
-    });
+  navClose.addEventListener('click', closeMenu);
+}
+
+// Click overlay to close
+if (navOverlay) {
+  navOverlay.addEventListener('click', closeMenu);
 }
 
 // Hide menu when clicking nav link
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('show-menu');
-    });
+  link.addEventListener('click', closeMenu);
 });
 
-// Active link on scroll
+// Close with ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenu();
+});
+
+/*=============== ACTIVE LINK ON SCROLL ===============*/
 const sections = document.querySelectorAll('section[id]');
 
 function scrollActive() {
-    const scrollY = window.pageYOffset;
+  const scrollY = window.scrollY;
 
-    sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 100;
-        const sectionId = current.getAttribute('id');
-        const link = document.querySelector(`.nav-link[href*="${sectionId}"]`);
+  sections.forEach(current => {
+    const sectionHeight = current.offsetHeight;
+    const sectionTop = current.offsetTop - 120;
+    const sectionId = current.getAttribute('id');
+    const link = document.querySelector(`.nav-link[href*="${sectionId}"]`);
 
-        if (link) {
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        }
-    });
+    if (!link) return;
+
+    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
 }
-
-window.addEventListener('scroll', scrollActive);
 
 /*=============== SCROLL HEADER ===============*/
 function scrollHeader() {
-    const header = document.getElementById('header');
-    if (this.scrollY >= 50) {
-        header.classList.add('scroll-header');
-    } else {
-        header.classList.remove('scroll-header');
-    }
-}
+  const header = document.getElementById('header');
+  if (!header) return;
 
-window.addEventListener('scroll', scrollHeader);
+  if (window.scrollY >= 50) header.classList.add('scroll-header');
+  else header.classList.remove('scroll-header');
+}
 
 /*=============== SMOOTH SCROLL ===============*/
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const headerHeight = document.querySelector('.header').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    if (!targetId || targetId === '#') return;
+
+    const targetElement = document.querySelector(targetId);
+    if (!targetElement) return;
+
+    e.preventDefault();
+
+    const header = document.querySelector('.header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetPosition = targetElement.offsetTop - headerHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
     });
+  });
 });
 
 /*=============== SCROLL TO TOP ===============*/
 const scrollTop = document.getElementById('scrollTop');
 
 function toggleScrollTop() {
-    if (this.scrollY >= 500) {
-        scrollTop.classList.add('show');
-    } else {
-        scrollTop.classList.remove('show');
-    }
+  if (!scrollTop) return;
+
+  if (window.scrollY >= 500) scrollTop.classList.add('show');
+  else scrollTop.classList.remove('show');
 }
 
-window.addEventListener('scroll', toggleScrollTop);
-
 if (scrollTop) {
-    scrollTop.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+  scrollTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
 /*=============== STATS COUNTER ===============*/
 function animateCounter(element) {
-    const target = parseInt(element.getAttribute('data-count'));
-    const duration = 2000; // 2 seconds
-    const increment = target / (duration / 16); // 60 FPS
-    let current = 0;
+  const target = parseInt(element.getAttribute('data-count'), 10);
+  if (Number.isNaN(target)) return;
 
-    const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-            element.textContent = Math.floor(current);
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target + '+';
-        }
-    };
+  const duration = 1600;
+  const start = performance.now();
 
-    updateCounter();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const value = Math.floor(progress * target);
+
+    element.textContent = value;
+
+    if (progress < 1) requestAnimationFrame(tick);
+    else element.textContent = `${target}+`;
+  }
+
+  requestAnimationFrame(tick);
 }
 
-// Intersection Observer for stats animation
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll('.stat-number[data-count]');
-            counters.forEach(counter => {
-                if (!counter.classList.contains('counted')) {
-                    counter.classList.add('counted');
-                    animateCounter(counter);
-                }
-            });
-            statsObserver.unobserve(entry.target);
-        }
+const statsObserver = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const counters = entry.target.querySelectorAll('.stat-number[data-count]');
+    counters.forEach(counter => {
+      if (counter.classList.contains('counted')) return;
+      counter.classList.add('counted');
+      animateCounter(counter);
     });
-}, { threshold: 0.5 });
+
+    obs.unobserve(entry.target);
+  });
+}, { threshold: 0.45 });
 
 const aboutSection = document.querySelector('.about');
-if (aboutSection) {
-    statsObserver.observe(aboutSection);
-}
+if (aboutSection) statsObserver.observe(aboutSection);
 
 /*=============== GALLERY FILTERS ===============*/
 const filterButtons = document.querySelectorAll('.filter-btn');
 const galleryItems = document.querySelectorAll('.gallery-item');
 
 filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
-        
-        const filterValue = button.getAttribute('data-filter');
-        
-        galleryItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            
-            if (filterValue === 'all' || category === filterValue) {
-                item.classList.remove('hide');
-                // Re-trigger AOS animation
-                item.classList.add('aos-animate');
-            } else {
-                item.classList.add('hide');
-            }
-        });
+  button.addEventListener('click', () => {
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    const filterValue = button.getAttribute('data-filter');
+
+    galleryItems.forEach(item => {
+      const category = item.getAttribute('data-category');
+
+      if (filterValue === 'all' || category === filterValue) {
+        item.classList.remove('hide');
+        item.classList.add('aos-animate');
+      } else {
+        item.classList.add('hide');
+      }
     });
+  });
 });
 
 /*=============== LIGHTBOX ===============*/
@@ -187,321 +194,145 @@ const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
 const galleryButtons = document.querySelectorAll('.gallery-btn');
 
-// Array to store all gallery images
 const galleryImages = Array.from(galleryItems).map(item => {
-    const img = item.querySelector('img');
-    return {
-        src: img.src,
-        alt: img.alt
-    };
-});
+  const img = item.querySelector('img');
+  return img ? { src: img.src, alt: img.alt } : null;
+}).filter(Boolean);
 
 let currentImageIndex = 0;
 
-// Open lightbox
-galleryButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        currentImageIndex = parseInt(button.getAttribute('data-index'));
-        showLightbox(currentImageIndex);
-    });
-});
-
 function showLightbox(index) {
-    lightbox.classList.add('active');
-    lightboxImage.src = galleryImages[index].src;
-    lightboxImage.alt = galleryImages[index].alt;
-    document.body.style.overflow = 'hidden';
+  if (!lightbox || !lightboxImage) return;
+
+  currentImageIndex = index;
+  const data = galleryImages[currentImageIndex];
+  if (!data) return;
+
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+  lightboxImage.src = data.src;
+  lightboxImage.alt = data.alt;
+
+  document.body.classList.add('no-scroll');
 }
 
 function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
+  if (!lightbox) return;
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('no-scroll');
 }
 
-// Close lightbox
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-        closeLightbox();
-    }
+galleryButtons.forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const index = parseInt(button.getAttribute('data-index'), 10);
+    if (Number.isNaN(index)) return;
+    showLightbox(index);
+  });
 });
 
-// Previous image
-lightboxPrev.addEventListener('click', (e) => {
+if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+
+if (lightbox) {
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+}
+
+if (lightboxPrev) {
+  lightboxPrev.addEventListener('click', (e) => {
     e.stopPropagation();
     currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-    lightboxImage.src = galleryImages[currentImageIndex].src;
-    lightboxImage.alt = galleryImages[currentImageIndex].alt;
-});
+    showLightbox(currentImageIndex);
+  });
+}
 
-// Next image
-lightboxNext.addEventListener('click', (e) => {
+if (lightboxNext) {
+  lightboxNext.addEventListener('click', (e) => {
     e.stopPropagation();
     currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-    lightboxImage.src = galleryImages[currentImageIndex].src;
-    lightboxImage.alt = galleryImages[currentImageIndex].alt;
-});
+    showLightbox(currentImageIndex);
+  });
+}
 
-// Keyboard navigation
 document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
-    
-    if (e.key === 'Escape') {
-        closeLightbox();
-    } else if (e.key === 'ArrowLeft') {
-        lightboxPrev.click();
-    } else if (e.key === 'ArrowRight') {
-        lightboxNext.click();
-    }
+  if (!lightbox || !lightbox.classList.contains('active')) return;
+
+  if (e.key === 'Escape') closeLightbox();
+  else if (e.key === 'ArrowLeft' && lightboxPrev) lightboxPrev.click();
+  else if (e.key === 'ArrowRight' && lightboxNext) lightboxNext.click();
 });
 
 /*=============== SIMPLE AOS (Animate On Scroll) ===============*/
 function initAOS() {
-    const aosElements = document.querySelectorAll('[data-aos]');
-    
-    const aosObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.getAttribute('data-aos-delay') || 0;
-                setTimeout(() => {
-                    entry.target.classList.add('aos-animate');
-                }, delay);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+  const aosElements = document.querySelectorAll('[data-aos]');
 
-    aosElements.forEach(element => {
-        aosObserver.observe(element);
+  const aosObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const delay = parseInt(entry.target.getAttribute('data-aos-delay') || '0', 10);
+      setTimeout(() => entry.target.classList.add('aos-animate'), delay);
     });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  aosElements.forEach(element => aosObserver.observe(element));
 }
 
-// Initialize AOS on page load
 document.addEventListener('DOMContentLoaded', initAOS);
 
-/*=============== LAZY LOADING IMAGES ===============*/
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.src; // Trigger load
-                img.classList.add('loaded');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => imageObserver.observe(img));
-}
-
 /*=============== PERFORMANCE OPTIMIZATION ===============*/
-// Debounce function for scroll events
-function debounce(func, wait = 10, immediate = true) {
-    let timeout;
-    return function() {
-        const context = this, args = arguments;
-        const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
+function debounce(func, wait = 40) {
+  let timeout;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), wait);
+  };
 }
 
-// Apply debounce to scroll events
-window.addEventListener('scroll', debounce(scrollActive));
-window.addEventListener('scroll', debounce(scrollHeader));
-window.addEventListener('scroll', debounce(toggleScrollTop));
+const onScroll = debounce(() => {
+  scrollActive();
+  scrollHeader();
+  toggleScrollTop();
+}, 40);
 
-/*=============== PRELOAD CRITICAL IMAGES ===============*/
-const criticalImages = [
-    'https://sspark.genspark.ai/cfimages?u1=dDRQdmOk7DwwcPC2KdAEZtzWLMRjLR6VwBVv%2FE4UjmKZbnnudscpKGzignWAdkSsPWc2geU7PKB6rJNqrKJZ8yTs5A8NJRsz%2FsQqcmC%2Bgodf4ckJz3OCrhEMEgAb4vuOElntj7ovyB2Ofxy4miL9Wrkf&u2=63daWCdKECfRm9kO&width=2560'
-];
-
-criticalImages.forEach(src => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = src;
-    document.head.appendChild(link);
-});
-
-/*=============== SERVICE WORKER (Optional for PWA) ===============*/
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to register service worker
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(registration => console.log('SW registered'))
-        //     .catch(error => console.log('SW registration failed'));
-    });
-}
+window.addEventListener('scroll', onScroll, { passive: true });
 
 /*=============== REDUCE MOTION FOR ACCESSIBILITY ===============*/
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (prefersReducedMotion.matches) {
-    // Disable animations for users who prefer reduced motion
-    document.documentElement.style.setProperty('--transition-fast', '0ms');
-    document.documentElement.style.setProperty('--transition-base', '0ms');
-    document.documentElement.style.setProperty('--transition-slow', '0ms');
+  document.documentElement.style.setProperty('--transition-fast', '0ms');
+  document.documentElement.style.setProperty('--transition-base', '0ms');
+  document.documentElement.style.setProperty('--transition-slow', '0ms');
 }
 
-/*=============== TOUCH GESTURES FOR MOBILE ===============*/
+/*=============== TOUCH GESTURES FOR MOBILE (LIGHTBOX) ===============*/
 let touchStartX = 0;
 let touchEndX = 0;
 
 function handleGesture() {
-    if (!lightbox.classList.contains('active')) return;
-    
-    if (touchEndX < touchStartX - 50) {
-        // Swipe left - next image
-        lightboxNext.click();
-    }
-    
-    if (touchEndX > touchStartX + 50) {
-        // Swipe right - previous image
-        lightboxPrev.click();
-    }
+  if (!lightbox || !lightbox.classList.contains('active')) return;
+
+  if (touchEndX < touchStartX - 50 && lightboxNext) {
+    lightboxNext.click();
+  }
+  if (touchEndX > touchStartX + 50 && lightboxPrev) {
+    lightboxPrev.click();
+  }
 }
 
-lightbox.addEventListener('touchstart', e => {
+if (lightbox) {
+  lightbox.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
-});
+  }, { passive: true });
 
-lightbox.addEventListener('touchend', e => {
+  lightbox.addEventListener('touchend', e => {
     touchEndX = e.changedTouches[0].screenX;
     handleGesture();
-});
-
-/*=============== FORM VALIDATION (if forms are added later) ===============*/
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
+  }, { passive: true });
 }
-
-/*=============== CONSOLE SIGNATURE ===============*/
-console.log(
-    '%c Portfolio Ana Silva',
-    'color: #8B5CF6; font-size: 24px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);'
-);
-console.log(
-    '%c Design by Ana Silva | Developed with ❤️',
-    'color: #EC4899; font-size: 14px;'
-);
-
-/*=============== ANIMATED GRADIENT BACKGROUND ===============*/
-function createGradientAnimation() {
-    const home = document.querySelector('.home');
-    if (!home) return;
-
-    let hue = 0;
-    
-    function updateGradient() {
-        hue = (hue + 0.5) % 360;
-        // Subtle animated gradient - disabled by default for performance
-        // home.style.background = `linear-gradient(135deg, 
-        //     hsl(${hue}, 70%, 95%) 0%, 
-        //     hsl(${(hue + 60) % 360}, 70%, 90%) 100%)`;
-        requestAnimationFrame(updateGradient);
-    }
-    
-    // Uncomment to enable animated gradient
-    // updateGradient();
-}
-
-// Initialize gradient animation
-// createGradientAnimation();
-
-/*=============== PERFORMANCE MONITORING ===============*/
-if ('performance' in window) {
-    window.addEventListener('load', () => {
-        const perfData = window.performance.timing;
-        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        
-        if (pageLoadTime > 0) {
-            console.log(`%c⚡ Page loaded in ${pageLoadTime}ms`, 'color: #10B981; font-weight: bold;');
-        }
-    });
-}
-
-/*=============== ERROR HANDLING ===============*/
-window.addEventListener('error', (e) => {
-    console.error('An error occurred:', e.message);
-    // Could send to error tracking service in production
-});
-
-/*=============== NETWORK STATUS ===============*/
-window.addEventListener('online', () => {
-    console.log('🟢 Back online');
-});
-
-window.addEventListener('offline', () => {
-    console.log('🔴 Connection lost');
-});
-
-/*=============== VISIBILITY CHANGE ===============*/
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Pause animations or videos when tab is not visible
-        console.log('Tab hidden - pausing animations');
-    } else {
-        // Resume animations
-        console.log('Tab visible - resuming animations');
-    }
-});
-
-/*=============== PRINT STYLES ===============*/
-window.addEventListener('beforeprint', () => {
-    console.log('Preparing to print...');
-});
-
-window.addEventListener('afterprint', () => {
-    console.log('Print complete');
-});
-
-/*=============== COPY PROTECTION (Optional) ===============*/
-// Uncomment to disable right-click on images
-// document.querySelectorAll('img').forEach(img => {
-//     img.addEventListener('contextmenu', e => e.preventDefault());
-// });
-
-/*=============== ANALYTICS (Integration point) ===============*/
-function trackEvent(category, action, label) {
-    // Integration point for Google Analytics, Plausible, etc.
-    console.log(`Event tracked: ${category} - ${action} - ${label}`);
-    
-    // Example for Google Analytics:
-    // if (typeof gtag !== 'undefined') {
-    //     gtag('event', action, {
-    //         'event_category': category,
-    //         'event_label': label
-    //     });
-    // }
-}
-
-// Track gallery item clicks
-galleryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const galleryItem = button.closest('.gallery-item');
-        const category = galleryItem.getAttribute('data-category');
-        trackEvent('Gallery', 'view', category);
-    });
-});
-
-// Track contact button clicks
-document.querySelectorAll('.contact-link').forEach(link => {
-    link.addEventListener('click', () => {
-        trackEvent('Contact', 'click', link.textContent.trim());
-    });
-});
-
-/*=============== INITIALIZATION COMPLETE ===============*/
-console.log('%c✨ Portfolio initialized successfully!', 'color: #8B5CF6; font-weight: bold;');

@@ -4,37 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfólio de Ana Silva - Designer Gráfica especializada em branding, design digital e identidade visual">
-    <meta name="theme-color" content="#8B5CF6">
+    <meta name="theme-color" content="#6D28D9">
     <title>Ana Silva - Designer Gráfica</title>
-    
+
     <!-- Preconnect para fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Google Fonts - Inter otimizada -->
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
+    <div class="loading-screen" id="loadingScreen" aria-hidden="true">
         <div class="loader"></div>
     </div>
 
     <!-- Header / Navigation -->
     <header class="header" id="header">
-        <nav class="nav container">
+        <nav class="nav container" aria-label="Navegação principal">
             <a href="#inicio" class="nav-logo">
                 <span class="logo-text">Ana Silva</span>
             </a>
 
-            <div class="nav-menu" id="navMenu">
+            <!-- Overlay do menu (mobile) -->
+            <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+            <div class="nav-menu" id="navMenu" aria-label="Menu">
                 <ul class="nav-list">
                     <li class="nav-item">
                         <a href="#inicio" class="nav-link active">
@@ -73,18 +76,21 @@
                         </a>
                     </li>
                 </ul>
-                <i class="fas fa-times nav-close" id="navClose"></i>
+
+                <button class="nav-close" id="navClose" aria-label="Fechar menu" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
-            <div class="nav-toggle" id="navToggle">
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" type="button">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main class="main">
-        
+
         <!-- Home Section -->
         <section class="home section" id="inicio">
             <div class="home-container container">
@@ -95,9 +101,10 @@
                         <span class="title-gradient">Ana Silva</span>
                     </h1>
                     <p class="home-description" data-aos="fade-up" data-aos-delay="200">
-                        Transformo ideias em experiências visuais memoráveis. 
+                        Transformo ideias em experiências visuais memoráveis.
                         Especialista em branding, design digital e identidade visual.
                     </p>
+
                     <div class="home-buttons" data-aos="fade-up" data-aos-delay="300">
                         <a href="#galeria" class="button button-primary">
                             <span>Ver Trabalhos</span>
@@ -107,7 +114,7 @@
                             <span>Entrar em Contato</span>
                         </a>
                     </div>
-                    
+
                     <div class="home-social" data-aos="fade-up" data-aos-delay="400">
                         <a href="#" class="social-link" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
@@ -126,10 +133,11 @@
 
                 <div class="home-image" data-aos="zoom-in" data-aos-delay="500">
                     <div class="home-img-wrapper">
-                        <img src="https://sspark.genspark.ai/cfimages?u1=dDRQdmOk7DwwcPC2KdAEZtzWLMRjLR6VwBVv%2FE4UjmKZbnnudscpKGzignWAdkSsPWc2geU7PKB6rJNqrKJZ8yTs5A8NJRsz%2FsQqcmC%2Bgodf4ckJz3OCrhEMEgAb4vuOElntj7ovyB2Ofxy4miL9Wrkf&u2=63daWCdKECfRm9kO&width=2560" 
-                             alt="Ana Silva - Designer Gráfica" 
+                        <img src="https://sspark.genspark.ai/cfimages?u1=dDRQdmOk7DwwcPC2KdAEZtzWLMRjLR6VwBVv%2FE4UjmKZbnnudscpKGzignWAdkSsPWc2geU7PKB6rJNqrKJZ8yTs5A8NJRsz%2FsQqcmC%2Bgodf4ckJz3OCrhEMEgAb4vuOElntj7ovyB2Ofxy4miL9Wrkf&u2=63daWCdKECfRm9kO&width=2560"
+                             alt="Ana Silva - Designer Gráfica"
                              class="home-img"
-                             loading="eager">
+                             loading="eager"
+                             decoding="async">
                         <div class="home-img-overlay"></div>
                     </div>
                 </div>
@@ -154,23 +162,24 @@
                 <div class="about-container">
                     <div class="about-image" data-aos="fade-right">
                         <div class="about-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=8lwvT3N%2BOuz7X3HuU80ZmIX8wzxMWk88VNspV9fJms0XDBog9iM6cn6GmQ1t5ixdHjT%2FCul93aNGOHccjDNj9h3cgAXk2BXLcQPSTPyn6dfGjyKQhFxm2%2F7xIqAPWJLPOv6pEjLXQaiJZ24dxzPS94TlQQ1gpmGJ1feHPXUUjE9C5XkJVjMc9kMDM5yQHkr0jImcXK8Rg%2FKT9ASdYg%2F%2F8S2kDJUc1A42t9OGY5R9PVHNRAWCRWnT9MD5xKK4M3bOYFZDy4zp8z%2F1qRBUESfaobsl%2Fdhu4G6rNa3f9NtjIAChr9DgB9kx420fWtmXhaE3dXMTBJvVZw1DDy2CSH1KOcZwnw%3D%3D&u2=QEpYluzhhBc9pPCZ&width=2560" 
+                            <img src="https://sspark.genspark.ai/cfimages?u1=8lwvT3N%2BOuz7X3HuU80ZmIX8wzxMWk88VNspV9fJms0XDBog9iM6cn6GmQ1t5ixdHjT%2FCul93aNGOHccjDNj9h3cgAXk2BXLcQPSTPyn6dfGjyKQhFxm2%2F7xIqAPWJLPOv6pEjLXQaiJZ24dxzPS94TlQQ1gpmGJ1feHPXUUjE9C5XkJVjMc9kMDM5yQHkr0jImcXK8Rg%2FKT9ASdYg%2F%2F8S2kDJUc1A42t9OGY5R9PVHNRAWCRWnT9MD5xKK4M3bOYFZDy4zp8z%2F1qRBUESfaobsl%2Fdhu4G6rNa3f9NtjIAChr9DgB9kx420fWtmXhaE3dXMTBJvVZw1DDy2CSH1KOcZwnw%3D%3D&u2=QEpYluzhhBc9pPCZ&width=2560"
                                  alt="Ana Silva trabalhando"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                     </div>
 
                     <div class="about-content" data-aos="fade-left">
                         <p class="about-text">
-                            Com mais de 8 anos de experiência em design gráfico, sou apaixonada por criar 
-                            identidades visuais únicas que contam histórias autênticas. Cada projeto é uma 
-                            oportunidade de transformar conceitos abstratos em experiências visuais tangíveis 
+                            Com mais de 8 anos de experiência em design gráfico, sou apaixonada por criar
+                            identidades visuais únicas que contam histórias autênticas. Cada projeto é uma
+                            oportunidade de transformar conceitos abstratos em experiências visuais tangíveis
                             e impactantes.
                         </p>
-                        
+
                         <p class="about-text">
-                            Minha abordagem combina criatividade estratégica com atenção aos detalhes, 
-                            sempre focando em entregar soluções que não apenas atraem visualmente, 
+                            Minha abordagem combina criatividade estratégica com atenção aos detalhes,
+                            sempre focando em entregar soluções que não apenas atraem visualmente,
                             mas também comunicam efetivamente a essência de cada marca.
                         </p>
 
@@ -220,7 +229,7 @@
                         </div>
                         <h3 class="service-title">Identidade Visual</h3>
                         <p class="service-description">
-                            Desenvolvimento completo de identidade visual, incluindo logo, paleta de cores, 
+                            Desenvolvimento completo de identidade visual, incluindo logo, paleta de cores,
                             tipografia e manual de marca para garantir consistência em todos os pontos de contato.
                         </p>
                         <ul class="service-features">
@@ -236,7 +245,7 @@
                         </div>
                         <h3 class="service-title">Design Digital</h3>
                         <p class="service-description">
-                            Criação de interfaces web e mobile intuitivas e atrativas, com foco em 
+                            Criação de interfaces web e mobile intuitivas e atrativas, com foco em
                             experiência do usuário, conversão e usabilidade moderna.
                         </p>
                         <ul class="service-features">
@@ -252,7 +261,7 @@
                         </div>
                         <h3 class="service-title">Design Editorial</h3>
                         <p class="service-description">
-                            Design e diagramação de materiais impressos e digitais como catálogos, 
+                            Design e diagramação de materiais impressos e digitais como catálogos,
                             revistas, e-books e apresentações corporativas com layout profissional.
                         </p>
                         <ul class="service-features">
@@ -268,7 +277,7 @@
                         </div>
                         <h3 class="service-title">Ilustração Digital</h3>
                         <p class="service-description">
-                            Ilustrações personalizadas e exclusivas para diversos tipos de projetos, 
+                            Ilustrações personalizadas e exclusivas para diversos tipos de projetos,
                             desde editorial até comunicação visual para redes sociais.
                         </p>
                         <ul class="service-features">
@@ -284,7 +293,7 @@
                         </div>
                         <h3 class="service-title">Social Media</h3>
                         <p class="service-description">
-                            Criação de conteúdo visual estratégico para redes sociais, incluindo posts, 
+                            Criação de conteúdo visual estratégico para redes sociais, incluindo posts,
                             stories, capas e templates personalizados para engajamento.
                         </p>
                         <ul class="service-features">
@@ -300,7 +309,7 @@
                         </div>
                         <h3 class="service-title">Embalagens</h3>
                         <p class="service-description">
-                            Design de embalagens criativas e funcionais que destacam seu produto nas 
+                            Design de embalagens criativas e funcionais que destacam seu produto nas
                             prateleiras e criam experiências memoráveis para os consumidores.
                         </p>
                         <ul class="service-features">
@@ -321,158 +330,159 @@
                     <h2 class="section-title">Galeria de Trabalhos</h2>
                 </div>
 
-                <div class="gallery-filters" data-aos="fade-up" data-aos-delay="100">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="branding">Branding</button>
-                    <button class="filter-btn" data-filter="web">Web Design</button>
-                    <button class="filter-btn" data-filter="editorial">Editorial</button>
-                    <button class="filter-btn" data-filter="ilustracao">Ilustração</button>
+                <div class="gallery-filters" data-aos="fade-up" data-aos-delay="100" role="tablist" aria-label="Filtros da galeria">
+                    <button class="filter-btn active" data-filter="all" type="button">Todos</button>
+                    <button class="filter-btn" data-filter="branding" type="button">Branding</button>
+                    <button class="filter-btn" data-filter="web" type="button">Web Design</button>
+                    <button class="filter-btn" data-filter="editorial" type="button">Editorial</button>
+                    <button class="filter-btn" data-filter="ilustracao" type="button">Ilustração</button>
                 </div>
 
                 <div class="gallery-container">
-                    <!-- Gallery Item 1 -->
                     <div class="gallery-item" data-category="branding" data-aos="zoom-in" data-aos-delay="100">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=q%2B6q2nfYEV%2Fctb6xpP8TWcvfEYRN819qcEtYLPGO%2BnNj7UtUqaYQswkqeONVlK36kKwoI%2F24n5wVvqS%2BefNsZskOhTYBmQqEvyasnG1MGBLWMQ5eIAU5TN9datolstHjJy%2BMPscK&u2=Zk8%2FNLDbxHq5AG02&width=2560" 
-                                 alt="Projeto de branding" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=q%2B6q2nfYEV%2Fctb6xpP8TWcvfEYRN819qcEtYLPGO%2BnNj7UtUqaYQswkqeONVlK36kKwoI%2F24n5wVvqS%2BefNsZskOhTYBmQqEvyasnG1MGBLWMQ5eIAU5TN9datolstHjJy%2BMPscK&u2=Zk8%2FNLDbxHq5AG02&width=2560"
+                                 alt="Projeto de branding"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Branding Moderno</h3>
                                 <p class="gallery-category">Identidade Visual</p>
-                                <button class="gallery-btn" data-index="0">
+                                <button class="gallery-btn" data-index="0" type="button" aria-label="Abrir imagem: Branding Moderno">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 2 -->
                     <div class="gallery-item" data-category="web" data-aos="zoom-in" data-aos-delay="200">
                         <div class="gallery-img-wrapper">
-                            <img src="img/interfaceCriativa.png" 
-                                 alt="Workspace design" 
-                                 loading="lazy">
+                            <img src="img/interfaceCriativa.png"
+                                 alt="Workspace design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Interface Criativa</h3>
                                 <p class="gallery-category">Web Design</p>
-                                <button class="gallery-btn" data-index="1">
+                                <button class="gallery-btn" data-index="1" type="button" aria-label="Abrir imagem: Interface Criativa">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 3 -->
                     <div class="gallery-item" data-category="editorial" data-aos="zoom-in" data-aos-delay="300">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=9it13S85tS3ephzT2bU5pm5nEbuyYv9EWs1J9OD%2FBWMxeUNo6JawzhnnHGOU8cymkaNkVGVf3JchaJJxeqY2cDN28JlHAjcBfim3tEvE%2B9%2BFWsOmanYfGfxT%2FmM1TbVtoOaVPJU%3D&u2=SKPvxjjXsOZRZRxV&width=2560" 
-                                 alt="Design editorial" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=9it13S85tS3ephzT2bU5pm5nEbuyYv9EWs1J9OD%2FBWMxeUNo6JawzhnnHGOU8cymkaNkVGVf3JchaJJxeqY2cDN28JlHAjcBfim3tEvE%2B9%2BFWsOmanYfGfxT%2FmM1TbVtoOaVPJU%3D&u2=SKPvxjjXsOZRZRxV&width=2560"
+                                 alt="Design editorial"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Revista Premium</h3>
                                 <p class="gallery-category">Design Editorial</p>
-                                <button class="gallery-btn" data-index="2">
+                                <button class="gallery-btn" data-index="2" type="button" aria-label="Abrir imagem: Revista Premium">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 4 -->
                     <div class="gallery-item" data-category="branding" data-aos="zoom-in" data-aos-delay="100">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=z%2BR2Bw3BjOX7h%2BOTV5RuKR3dk2nqkqRQ5q4wtgKhFSaxku5h1FMHChTLkrnV3JDRwXBxPm04ToHUoxSP31n5%2B4H6SrYJMQjD3UQla8ZrOh9TPwLqnCnMR1je&u2=75rKb2MEZ%2FQGXVox&width=2560" 
-                                 alt="Business card design" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=z%2BR2Bw3BjOX7h%2BOTV5RuKR3dk2nqkqRQ5q4wtgKhFSaxku5h1FMHChTLkrnV3JDRwXBxPm04ToHUoxSP31n5%2B4H6SrYJMQjD3UQla8ZrOh9TPwLqnCnMR1je&u2=75rKb2MEZ%2FQGXVox&width=2560"
+                                 alt="Business card design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Cartão Corporativo</h3>
                                 <p class="gallery-category">Branding</p>
-                                <button class="gallery-btn" data-index="3">
+                                <button class="gallery-btn" data-index="3" type="button" aria-label="Abrir imagem: Cartão Corporativo">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 5 -->
                     <div class="gallery-item" data-category="ilustracao" data-aos="zoom-in" data-aos-delay="200">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=jHf%2Fl%2BIsHInN7xp6Lpu3AXBd%2Fz5DgJK0itiZ1jm0SAfE2DcPL9aJcL3bwjp7jqApcZilYtlfBYvbXgeXAsNaVStoO9H4qnIbbNgDUcFYSM8mEbqqknB8NVbKKqoiTvadTe%2FDy%2F7TpHY57KPdT5THdq%2FOQlU9&u2=iOWPiOCKUnjbRfd4&width=2560" 
-                                 alt="Ilustração custom" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=jHf%2Fl%2BIsHInN7xp6Lpu3AXBd%2Fz5DgJK0itiZ1jm0SAfE2DcPL9aJcL3bwjp7jqApcZilYtlfBYvbXgeXAsNaVStoO9H4qnIbbNgDUcFYSM8mEbqqknB8NVbKKqoiTvadTe%2FDy%2F7TpHY57KPdT5THdq%2FOQlU9&u2=iOWPiOCKUnjbRfd4&width=2560"
+                                 alt="Ilustração custom"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Sketches Criativos</h3>
                                 <p class="gallery-category">Ilustração</p>
-                                <button class="gallery-btn" data-index="4">
+                                <button class="gallery-btn" data-index="4" type="button" aria-label="Abrir imagem: Sketches Criativos">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 6 -->
                     <div class="gallery-item" data-category="branding" data-aos="zoom-in" data-aos-delay="300">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=bVMVNsDJYeFEJWQhkhnJ6CIyHR%2BnsS1y7GNl4RM%2B45h3Of7%2FAdn1DO1hkQtR%2BHawUMN1fIOhrDVZcs4mmnHbNSECrUnh1Ea0WX311NST9TA7WcPh8Cmysd5HU7mOnuU%3D&u2=nAC%2F98qBf88tzxpB&width=2560" 
-                                 alt="Stationery design" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=bVMVNsDJYeFEJWQhkhnJ6CIyHR%2BnsS1y7GNl4RM%2B45h3Of7%2FAdn1DO1hkQtR%2BHawUMN1fIOhrDVZcs4mmnHbNSECrUnh1Ea0WX311NST9TA7WcPh8Cmysd5HU7mOnuU%3D&u2=nAC%2F98qBf88tzxpB&width=2560"
+                                 alt="Stationery design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Papelaria Completa</h3>
                                 <p class="gallery-category">Branding</p>
-                                <button class="gallery-btn" data-index="5">
+                                <button class="gallery-btn" data-index="5" type="button" aria-label="Abrir imagem: Papelaria Completa">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 7 -->
                     <div class="gallery-item" data-category="web" data-aos="zoom-in" data-aos-delay="100">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=Vu00f2zUCGjbAr4uf9jJ4jwtkMrs6XFBN0tfFkTdHQCTlWnWxWMYByAmiHOPuv6hL%2BsGapmfC%2FwxgA9IB%2F5kTMG7fjjf0c1twKGQH6ic30%2BwrQ%3D%3D&u2=7P8btPT%2BdIeXoAop&width=2560" 
-                                 alt="Mobile app design" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=Vu00f2zUCGjbAr4uf9jJ4jwtkMrs6XFBN0tfFkTdHQCTlWnWxWMYByAmiHOPuv6hL%2BsGapmfC%2FwxgA9IB%2F5kTMG7fjjf0c1twKGQH6ic30%2BwrQ%3D%3D&u2=7P8btPT%2BdIeXoAop&width=2560"
+                                 alt="Mobile app design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">App Design</h3>
                                 <p class="gallery-category">UI/UX</p>
-                                <button class="gallery-btn" data-index="6">
+                                <button class="gallery-btn" data-index="6" type="button" aria-label="Abrir imagem: App Design">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 8 -->
                     <div class="gallery-item" data-category="branding" data-aos="zoom-in" data-aos-delay="200">
                         <div class="gallery-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=j5777yw6tO%2Br1xc6VrWVPVHOADctpQ1jFMxYHpyygXHhv11vBYkS2SP72a5hZMqRavOSOQuuOg6witSeCmU9%2B6dArEIk%2BFTQlM3RbFP7OvaUThiV%2FBAjc2c%2BnjmmAg%3D%3D&u2=g2C5161xByMRKxVC&width=2560" 
-                                 alt="Package design" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=j5777yw6tO%2Br1xc6VrWVPVHOADctpQ1jFMxYHpyygXHhv11vBYkS2SP72a5hZMqRavOSOQuuOg6witSeCmU9%2B6dArEIk%2BFTQlM3RbFP7OvaUThiV%2FBAjc2c%2BnjmmAg%3D%3D&u2=g2C5161xByMRKxVC&width=2560"
+                                 alt="Package design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Packaging Premium</h3>
                                 <p class="gallery-category">Embalagens</p>
-                                <button class="gallery-btn" data-index="7">
+                                <button class="gallery-btn" data-index="7" type="button" aria-label="Abrir imagem: Packaging Premium">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Gallery Item 9 -->
                     <div class="gallery-item" data-category="editorial" data-aos="zoom-in" data-aos-delay="300">
                         <div class="gallery-img-wrapper">
-                            <img src="img/posterMinimalista.png" 
-                                 alt="Poster design" 
-                                 loading="lazy">
+                            <img src="img/posterMinimalista.png"
+                                 alt="Poster design"
+                                 loading="lazy"
+                                 decoding="async">
                             <div class="gallery-overlay">
                                 <h3 class="gallery-title">Poster Minimalista</h3>
                                 <p class="gallery-category">Design Gráfico</p>
-                                <button class="gallery-btn" data-index="8">
+                                <button class="gallery-btn" data-index="8" type="button" aria-label="Abrir imagem: Poster Minimalista">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -489,16 +499,17 @@
                     <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="testimonial-header">
                             <div class="client-image">
-                                <img src="https://sspark.genspark.ai/cfimages?u1=WtPWXr4AyKZ7ha%2FkRtHUD6Ouoke6KRvAV9gGOaYSnLHKYHIM0dabVYdrzxDqK3IxznIVPJngBHF1Qlxdgh%2FW4TLFrOn%2FGf6iFgY8wxL3XfK0wu6DItv1zDTd7vXYyHtoU8jewBg9Ih5o7ROwk60%3D&u2=8VX3LgpR1SMbPx8y&width=2560" 
-                                     alt="Cliente" 
-                                     loading="lazy">
+                                <img src="https://sspark.genspark.ai/cfimages?u1=WtPWXr4AyKZ7ha%2FkRtHUD6Ouoke6KRvAV9gGOaYSnLHKYHIM0dabVYdrzxDqK3IxznIVPJngBHF1Qlxdgh%2FW4TLFrOn%2FGf6iFgY8wxL3XfK0wu6DItv1zDTd7vXYyHtoU8jewBg9Ih5o7ROwk60%3D&u2=8VX3LgpR1SMbPx8y&width=2560"
+                                     alt="Cliente"
+                                     loading="lazy"
+                                     decoding="async">
                             </div>
                             <div class="client-info">
                                 <h4 class="client-name">Mariana Costa</h4>
                                 <p class="client-role">CEO, Boutique Essence</p>
                             </div>
                         </div>
-                        <div class="stars">
+                        <div class="stars" aria-label="5 de 5 estrelas">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -506,8 +517,8 @@
                             <i class="fas fa-star"></i>
                         </div>
                         <p class="testimonial-text">
-                            "Ana transformou completamente a identidade visual da minha marca. O trabalho dela 
-                            é impecável, sempre entrega além do esperado e com um senso estético refinado. 
+                            "Ana transformou completamente a identidade visual da minha marca. O trabalho dela
+                            é impecável, sempre entrega além do esperado e com um senso estético refinado.
                             Recomendo 100%!"
                         </p>
                     </div>
@@ -515,16 +526,17 @@
                     <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="testimonial-header">
                             <div class="client-image">
-                                <img src="https://sspark.genspark.ai/cfimages?u1=hEPTnubBHbp3KWlKemD7jKlilVFWF%2BO%2FpeZQQNhT6pmegKWcz8eXWrB9VjgV%2FZ18Lj7DJYZaAYizVtL8bq976%2Fntvr%2FJ3wKuPFuuH6Cj%2BaHxgaWdP%2Byq%2FVJDlvKnL49XNbds8gYcKg%3D%3D&u2=Sk7dR%2B9L8PasI%2Byp&width=2560" 
-                                     alt="Cliente" 
-                                     loading="lazy">
+                                <img src="https://sspark.genspark.ai/cfimages?u1=hEPTnubBHbp3KWlKemD7jKlilVFWF%2BO%2FpeZQQNhT6pmegKWcz8eXWrB9VjgV%2FZ18Lj7DJYZaAYizVtL8bq976%2Fntvr%2FJ3wKuPFuuH6Cj%2BaHxgaWdP%2Byq%2FVJDlvKnL49XNbds8gYcKg%3D%3D&u2=Sk7dR%2B9L8PasI%2Byp&width=2560"
+                                     alt="Cliente"
+                                     loading="lazy"
+                                     decoding="async">
                             </div>
                             <div class="client-info">
                                 <h4 class="client-name">Ricardo Almeida</h4>
                                 <p class="client-role">Diretor, Tech Innovations</p>
                             </div>
                         </div>
-                        <div class="stars">
+                        <div class="stars" aria-label="5 de 5 estrelas">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -532,8 +544,8 @@
                             <i class="fas fa-star"></i>
                         </div>
                         <p class="testimonial-text">
-                            "Profissionalismo e criatividade definem o trabalho da Ana. Ela entendeu 
-                            perfeitamente nossa visão e criou um design moderno e funcional para nosso 
+                            "Profissionalismo e criatividade definem o trabalho da Ana. Ela entendeu
+                            perfeitamente nossa visão e criou um design moderno e funcional para nosso
                             aplicativo. Excelente parceira!"
                         </p>
                     </div>
@@ -541,16 +553,17 @@
                     <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="testimonial-header">
                             <div class="client-image">
-                                <img src="https://sspark.genspark.ai/cfimages?u1=YnhzK%2BTP2gDIZHsvapZXD2byKODqH8CGVscXoiGHCTBiBYMKFf4eg4u9fjHmz8dld9duTWZiFc34Doxor0g%2BPmhHliDbLivmQKY9Hza00gsF91Hx6ZGbPadIQwk6NLiYzkWA6DlW%2FLA1EbwELqo3W1GELrFv8NQg2IPZkOSi7DbUdYiYUcO6tBbz9mg9iR9IJZm6H45HOiw44OwC75Sl4j%2BEz7atbHfA5zNL%2B7mA3oy3u%2FRwhDaocPNA08DTcsFKgXDqScfgmDp%2BFwFc0%2FJ%2FYT8xAO9qMg%3D%3D&u2=h3GiOe3yeaUGUOV2&width=2560" 
-                                     alt="Cliente" 
-                                     loading="lazy">
+                                <img src="https://sspark.genspark.ai/cfimages?u1=YnhzK%2BTP2gDIZHsvapZXD2byKODqH8CGVscXoiGHCTBiBYMKFf4eg4u9fjHmz8dld9duTWZiFc34Doxor0g%2BPmhHliDbLivmQKY9Hza00gsF91Hx6ZGbPadIQwk6NLiYzkWA6DlW%2FLA1EbwELqo3W1GELrFv8NQg2IPZkOSi7DbUdYiYUcO6tBbz9mg9iR9IJZm6H45HOiw44OwC75Sl4j%2BEz7atbHfA5zNL%2B7mA3oy3u%2FRwhDaocPNA08DTcsFKgXDqScfgmDp%2BFwFc0%2FJ%2FYT8xAO9qMg%3D%3D&u2=h3GiOe3yeaUGUOV2&width=2560"
+                                     alt="Cliente"
+                                     loading="lazy"
+                                     decoding="async">
                             </div>
                             <div class="client-info">
                                 <h4 class="client-name">Juliana Santos</h4>
                                 <p class="client-role">Fundadora, Café Aroma</p>
                             </div>
                         </div>
-                        <div class="stars">
+                        <div class="stars" aria-label="5 de 5 estrelas">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -558,8 +571,8 @@
                             <i class="fas fa-star"></i>
                         </div>
                         <p class="testimonial-text">
-                            "O design das embalagens criado pela Ana aumentou significativamente nossas vendas. 
-                            Ela tem um talento especial para capturar a essência de uma marca e traduzi-la 
+                            "O design das embalagens criado pela Ana aumentou significativamente nossas vendas.
+                            Ela tem um talento especial para capturar a essência de uma marca e traduzi-la
                             visualmente de forma única."
                         </p>
                     </div>
@@ -574,7 +587,7 @@
                     <span class="section-subtitle">Entre em contato</span>
                     <h2 class="section-title">Vamos Conversar?</h2>
                     <p class="section-description">
-                        Tem um projeto em mente? Estou sempre aberta para discutir novos projetos 
+                        Tem um projeto em mente? Estou sempre aberta para discutir novos projetos
                         criativos e oportunidades de colaboração.
                     </p>
                 </div>
@@ -614,7 +627,7 @@
                             <div class="contact-data">
                                 <h3 class="contact-title">WhatsApp</h3>
                                 <p class="contact-detail">Atendimento rápido</p>
-                                <a href="https://wa.me/5511987654321" target="_blank" class="contact-link">
+                                <a href="https://wa.me/5511987654321" target="_blank" rel="noopener" class="contact-link">
                                     Chamar no WhatsApp <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
@@ -641,9 +654,10 @@
 
                     <div class="contact-image" data-aos="fade-left">
                         <div class="contact-img-wrapper">
-                            <img src="https://sspark.genspark.ai/cfimages?u1=eXSKeo4RHyIfQCgodoZxB8%2BTdI5YU5YHA3hE3mQtUiYFXvmLf5ymSkZUwSxbbd5WE3xVpuE9qU9lrLVwoVExyNR6wXco%2BTI4Co2bkxtzB2B0Hin0&u2=X%2FyJUl%2BbEyOUHn87&width=2560" 
-                                 alt="Workspace" 
-                                 loading="lazy">
+                            <img src="https://sspark.genspark.ai/cfimages?u1=eXSKeo4RHyIfQCgodoZxB8%2BTdI5YU5YHA3hE3mQtUiYFXvmLf5ymSkZUwSxbbd5WE3xVpuE9qU9lrLVwoVExyNR6wXco%2BTI4Co2bkxtzB2B0Hin0&u2=X%2FyJUl%2BbEyOUHn87&width=2560"
+                                 alt="Workspace"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                     </div>
                 </div>
@@ -684,23 +698,23 @@
     </footer>
 
     <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">
+    <button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo" type="button">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fechar" type="button">
             <i class="fas fa-times"></i>
         </button>
-        <button class="lightbox-prev" id="lightboxPrev" aria-label="Anterior">
+        <button class="lightbox-prev" id="lightboxPrev" aria-label="Anterior" type="button">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="lightbox-next" id="lightboxNext" aria-label="Próximo">
+        <button class="lightbox-next" id="lightboxNext" aria-label="Próximo" type="button">
             <i class="fas fa-chevron-right"></i>
         </button>
         <div class="lightbox-content">
-            <img src="" alt="Gallery image" id="lightboxImage">
+            <img src="" alt="Imagem da galeria" id="lightboxImage">
         </div>
     </div>
 
