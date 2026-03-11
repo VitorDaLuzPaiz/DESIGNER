@@ -101,9 +101,10 @@ html {
 
 /* Evita “lateral mexendo” no mobile (horizontal scroll/jitter) */
 html, body {
-  width: 100%;
-  max-width: 100%;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+  width: 100%;
   position: relative;
 }
 
@@ -1223,7 +1224,7 @@ input, textarea {
 
   .gallery-filters {
     justify-content: flex-start;
-    overflow-x: auto;
+    overflow-x: hidden;
     padding-bottom: var(--spacing-xs);
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
