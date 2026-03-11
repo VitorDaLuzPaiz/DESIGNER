@@ -88,6 +88,12 @@
   margin: 0;
 }
 
+*,
+*::before,
+*::after {
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
@@ -97,7 +103,10 @@ html {
 html, body {
   width: 100%;
   max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
+
 body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
@@ -165,6 +174,20 @@ input, textarea {
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 1.5rem);
+}
+
+.container,
+.section,
+.home,
+.about,
+.services,
+.gallery,
+.testimonials,
+.contact,
+.footer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .section {
@@ -368,7 +391,7 @@ input, textarea {
 
 /*=============== HOME ===============*/
 .home {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   padding-top: var(--header-height);
@@ -1262,3 +1285,19 @@ input, textarea {
 
 [data-aos="zoom-in"] { transform: scale(0.92); }
 [data-aos="zoom-in"].aos-animate { transform: scale(1); }
+
+/* ===== MOBILE OVERFLOW FIX ===== */
+
+@media (max-width: 768px) {
+
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  * {
+    max-width: 100%;
+  }
+
+}
